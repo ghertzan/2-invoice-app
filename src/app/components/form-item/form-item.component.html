@@ -1,0 +1,43 @@
+<form class="w-50" (ngSubmit)="onSubmit()" #itemForm="ngForm">
+    
+    <input name="description" 
+    placeholder="Descripcion" 
+    class="form-control m-3"
+    [(ngModel)]="item.description"
+    required 
+    minlength="5"
+    #descripcion = "ngModel">
+
+    @if(descripcion.invalid && (descripcion.dirty || descripcion.touched)){
+        @if(descripcion.errors!['required']){
+            <div class="text-danger">
+                Descripcion requerida
+            </div>
+        }
+
+        @if(descripcion.errors!['minlenght']){
+            <div class="text-danger">
+                Longitud de descripción debe ser mayor a 5 caracteres
+            </div>
+        }
+    }
+
+
+
+    <input name="price" 
+    type="number"
+    placeholder="Precio" 
+    class="form-control m-3"
+    [(ngModel)]="item.price"
+    required min="10"
+    >
+
+    <input name="qty"
+    type="number" 
+    placeholder="Cantidad" 
+    class="form-control m-3"
+    [(ngModel)]="item.qty"
+    required min="1">
+
+    <button class="btn btn-primary m-3" [disabled]="!itemForm.valid"> Nuevo item</button>
+</form>
